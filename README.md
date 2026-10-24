@@ -79,6 +79,23 @@ ORDER BY DESC(?sharedTracks)
 
 The string comparison avoids counting the same genre pair twice in reverse order; `COUNT(DISTINCT ?track)` prevents duplicate track counts.
 
+## Results & Visualisations
+
+### Genre Overlap
+
+![Spotify Genre Overlap](genre_overlap.png)
+
+Indie and Indie-Pop showed the highest overlap,
+with a Jaccard similarity of 40.80%.
+
+### Popularity Comparison
+
+![Spotify Popularity Comparison](genre_popularity.png)
+
+Multi-genre tracks had an average popularity
+score of 37.83, compared with 34.98 for
+single-genre tracks.
+
 ## Technologies
 
 - **Python** — data preparation, RDF construction, and analysis
