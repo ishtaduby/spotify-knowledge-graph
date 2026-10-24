@@ -1,0 +1,183 @@
+@prefix : <http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@base <http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/> .
+
+<http://www.example.org/spotify-genre-ontology> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/belongsToAlbum
+:belongsToAlbum rdf:type owl:ObjectProperty ;
+                rdfs:domain :MusicTrack ;
+                rdfs:range :Album .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/hasGenre
+:hasGenre rdf:type owl:ObjectProperty ;
+          rdfs:domain :MusicTrack ;
+          rdfs:range :Genre .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/performedBy
+:performedBy rdf:type owl:ObjectProperty ;
+             rdfs:domain :MusicTrack ;
+             rdfs:range :Artist .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/hasPopularity
+:hasPopularity rdf:type owl:DatatypeProperty ;
+               rdfs:domain :MusicTrack ;
+               rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/hasTrackName
+:hasTrackName rdf:type owl:DatatypeProperty ;
+              rdfs:domain :MusicTrack ;
+              rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/Album
+:Album rdf:type owl:Class ;
+       rdfs:subClassOf schema:MusicAlbum .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/Artist
+:Artist rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/Genre
+:Genre rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/GenreOverlappingArtist
+:GenreOverlappingArtist rdf:type owl:Class ;
+                        rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/LowPopularityTrack
+:LowPopularityTrack rdf:type owl:Class ;
+                    owl:equivalentClass [ owl:intersectionOf ( :MusicTrack
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty :hasPopularity ;
+                                                                 owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                      owl:onDatatype xsd:integer ;
+                                                                                      owl:withRestrictions ( [ xsd:maxExclusive 70
+                                                                                                             ]
+                                                                                                           )
+                                                                                    ]
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] ;
+                    rdfs:subClassOf :MusicTrack .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/MultiGenreTrack
+:MultiGenreTrack rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( :MusicTrack
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :hasGenre ;
+                                                              owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :Genre
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:subClassOf :MusicTrack .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/MusicRelease
+:MusicRelease rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/MusicTrack
+:MusicTrack rdf:type owl:Class ;
+            rdfs:subClassOf schema:MusicRecording .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/PopularTrack
+:PopularTrack rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( :MusicTrack
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :hasPopularity ;
+                                                           owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                owl:onDatatype xsd:integer ;
+                                                                                owl:withRestrictions ( [ xsd:minInclusive 70
+                                                                                                       ]
+                                                                                                     )
+                                                                              ]
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+              rdfs:subClassOf :MusicTrack .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/SingleGenreTrack
+:SingleGenreTrack rdf:type owl:Class ;
+                  rdfs:subClassOf :MusicTrack .
+
+
+###  https://schema.org/MusicAlbum
+schema:MusicAlbum rdf:type owl:Class .
+
+
+###  https://schema.org/MusicRecording
+schema:MusicRecording rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/AltRock
+:AltRock rdf:type owl:NamedIndividual ,
+                  :Genre ;
+         owl:differentFrom :Indie ,
+                           :IndiePop ,
+                           :Pop ,
+                           :Rock .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/Indie
+:Indie rdf:type owl:NamedIndividual ,
+                :Genre ;
+       owl:differentFrom :IndiePop ,
+                         :Pop ,
+                         :Rock .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/IndiePop
+:IndiePop rdf:type owl:NamedIndividual ,
+                   :Genre ;
+          owl:differentFrom :Pop ,
+                            :Rock .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/Pop
+:Pop rdf:type owl:NamedIndividual ,
+              :Genre ;
+     owl:differentFrom :Rock .
+
+
+###  http://www.semanticweb.org/vishwasdubey/ontologies/2026/9/untitled-ontology-5/Rock
+:Rock rdf:type owl:NamedIndividual ,
+               :Genre .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
