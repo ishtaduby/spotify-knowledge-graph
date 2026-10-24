@@ -4,7 +4,7 @@
 
 Music genres are not always mutually exclusive. A track can appear under several genre labels, which raises two questions: **where do genres overlap most, and are multi-genre tracks more popular?** This project explores those questions by transforming Spotify track data into a knowledge graph and querying the relationships between tracks, artists, albums, and genres.
 
-Built as part of a university *Knowledge & Data* project, with a focus on ontology design, data preparation, knowledge representation, and analysis.
+Built as part of a independent university *Knowledge & Data* project, with a focus on ontology design, data preparation, knowledge representation, and analysis.
 
 ## Project at a glance
 
